@@ -293,7 +293,6 @@ class FoodWheelApp:
             fill=color,
             outline="white",
             width=2,
-            style=tk.PIE
         )
 
         # 计算扇区中心角度（tkinter 角度体系）
