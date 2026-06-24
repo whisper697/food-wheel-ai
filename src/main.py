@@ -48,7 +48,7 @@ def main():
 
     if errors:
         print("=" * 60)
-        print("⚠️  以下模块尚未完成，程序将在受限模式下运行：")
+        print("[WARN] 以下模块尚未完成，程序将在受限模式下运行：")
         for err in errors:
             print(f"   {err}")
         print("=" * 60)
@@ -57,9 +57,9 @@ def main():
     if FoodDataManager:
         try:
             data_manager = FoodDataManager()
-            print(f"✅ 数据模块加载成功，共 {len(data_manager.get_foods())} 道菜品")
+            print(f"[OK] 数据模块加载成功，共 {len(data_manager.get_foods())} 道菜品")
         except Exception as e:
-            print(f"⚠️  数据模块初始化失败：{e}")
+            print(f"[WARN] 数据模块初始化失败: {e}")
             data_manager = None
     else:
         data_manager = None
@@ -72,18 +72,18 @@ def main():
             env_path = os.path.join(os.path.dirname(__file__), "..", ".env")
             ai_ready = ai.init_api_key(env_path=env_path)
             if ai_ready:
-                print("✅ AI模块加载成功，密钥已就绪")
+                print("[OK] AI模块加载成功，密钥已就绪")
             else:
-                print("⚠️  AI模块：.env 密钥未配置，AI建议功能将不可用")
+                print("[WARN] AI模块: .env 密钥未配置，AI建议功能将不可用")
         except Exception as e:
-            print(f"⚠️  AI模块初始化失败：{e}")
+            print(f"[WARN] AI模块初始化失败: {e}")
             ai = None
     else:
         ai = None
 
     # ── 4. 创建 Tkinter 根窗口 ─────────────────────────────────
     root = tk.Tk()
-    root.title("🍜 美食转盘 AI 助手")
+    root.title("美食转盘 AI 助手")
     root.resizable(False, False)
 
     # 窗口居中显示
@@ -121,7 +121,7 @@ def main():
                 else:
                     print(f"AI建议：{suggestion}")
             except Exception as e:
-                print(f"⚠️  AI建议获取失败：{e}")
+                print(f"[WARN]️  AI建议获取失败：{e}")
                 if hasattr(app, "show_ai_suggestion"):
                     app.show_ai_suggestion("AI建议暂时不可用，请检查网络或密钥配置。")
         else:
@@ -135,7 +135,7 @@ def main():
     app.on_spin_done = on_spin_done
 
     # ── 8. 启动主循环 ───────────────────────────────────────────
-    print("🎉 美食转盘 AI 助手已启动！")
+    print("[OK] 美食转盘 AI 助手已启动！")
     root.mainloop()
 
 
@@ -147,7 +147,7 @@ def _show_placeholder(root: tk.Tk):
 
     tk.Label(
         frame,
-        text="🍜 美食转盘 AI 助手",
+        text=" 美食转盘 AI 助手",
         font=("微软雅黑", 18, "bold"),
         bg="#FFF8F0",
         fg="#FF6B35"
@@ -164,7 +164,7 @@ def _show_placeholder(root: tk.Tk):
 
     tk.Label(
         frame,
-        text="✅ 数据模块  ✅ AI模块  ⏳ 界面模块",
+        text="[OK] 数据模块  [OK] AI模块  [PENDING] 界面模块",
         font=("微软雅黑", 10),
         bg="#FFF8F0",
         fg="#999999"
